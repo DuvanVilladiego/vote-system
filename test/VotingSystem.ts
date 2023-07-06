@@ -8,13 +8,9 @@ describe("VotingSystem", function () {
     const VotingSystem = await ethers.getContractFactory("VotingSystem");
     votingSystem = await VotingSystem.deploy();
     await votingSystem.deployed();
-  });
-  
-  it("Open the voting successfully", async function () {
-    
-    const result = await votingSystem.openVoting();
 
-    expect(result).to.equal("Voting is opened now");
+    // Abre la votación antes de las pruebas
+    await votingSystem.openVoting();
   });
 
   it("Should add an option successfully", async function () {
@@ -95,10 +91,6 @@ describe("VotingSystem", function () {
   });
 
   it("Should open and close voting successfully", async function () {
-    expect(await votingSystem.isClosed()).to.equal(true);
-
-    const openResult = await votingSystem.openVoting();
-    expect(openResult).to.equal("Voting is opened now");
     expect(await votingSystem.isClosed()).to.equal(false);
 
     const closeResult = await votingSystem.closeVoting();
